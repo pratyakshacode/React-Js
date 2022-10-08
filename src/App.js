@@ -1,24 +1,51 @@
-import logo from './logo.svg';
+import React from 'react';
+import { useState } from 'react';
 import './App.css';
+import Navbar from './Components/Navbar';
+import Textform from './Components/Textform';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from "react-router-dom";
+import About from './Components/About';
+
 
 function App() {
+  const[mode, setMode] = useState('light');
+
+   const darkMode = () =>{
+      if(mode === 'light'){
+        setMode('dark');
+        document.body.style.backgroundColor = 'rgb(0 24 51)';
+        
+      }
+      else{
+        setMode('light');
+        document.body.style.backgroundColor = 'white';
+
+      }
+   }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+    <Router>
+      
+
+<Navbar mode={mode} darkmode = {darkMode}/>
+<div className='container'>
+<Routes>
+
+          <Route exact path="/about"  element={<About mode={mode}/>}>
+          
+          </Route>
+          
+          <Route path="/" element={<Textform mode={mode}/>}>
+          
+          </Route>
+        </Routes>
     </div>
+    
+    </Router>
   );
 }
 
